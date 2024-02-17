@@ -20,19 +20,23 @@ char receivedData[32] = "";
 int  xAxis, yAxis;
 int motorSpeedA = 0;
 int motorSpeedB = 0;
+
 void setup() {
+
   pinMode(enA, OUTPUT);
   pinMode(enB, OUTPUT);
   pinMode(in1, OUTPUT);
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
+
   Serial.begin(9600);
   radio.begin();
   radio.openReadingPipe(0, address);
   radio.setPALevel(RF24_PA_MIN);
   radio.startListening();
 }
+
 void loop() {
   if (radio.available()) {   // If the NRF240L01 module received data
     radio.read(&receivedData, sizeof(receivedData)); // Read the data and put it into character array
