@@ -13,6 +13,8 @@
 #define in7 7 
 #define in8 A5 
 
+#define transistor A3 
+
 const int button =13; 
 const int LED=12; 
 bool arm_on=false; 
@@ -52,6 +54,9 @@ void setup() {
   //Button Code
   pinMode(LED, OUTPUT);
   pinMode(button, INPUT);
+
+  //transistor code
+  pinMode(transistor, OUTPUT); 
 
 
   Serial.begin(9600); 
@@ -145,10 +150,17 @@ void loop() {
 
   else{
     Serial.println("joystick controlling pulley and magnet is on");
+    //power the EM
+    digitalWrite(6, HIGH); 
+    delay(1000); 
+    digitalWrite(6, LOW); 
+    delay(1000); 
+
+
     //Turn Magnet on 
-    digitalWrite(in7, HIGH);
-    digitalWrite(in8, LOW);
-    analogWrite(enD, 50);
+    digitalWrite(in7, LOW);
+    digitalWrite(in8, HIGH);
+    analogWrite(enD, 255);
 
     if (yAxis < 470) {
       digitalWrite(in5, HIGH);
